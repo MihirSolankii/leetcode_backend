@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Test with Socket.IO</title>
+</head>
+<body>
+  <h1>Socket.IO WebSocket Test</h1>
+  <textarea id="messageInput" placeholder="Type a message..."></textarea><br>
+  <button id="sendMessageButton">Send Message</button>
+  <ul id="messagesList"></ul>
+
+  <script src="https://cdn.socket.io/4.1.3/socket.io.min.js"></script>
+  <script>
+    // Get the JWT token from local storage (or your authentication method)
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3M2I2NTVmNzQ0YzZkOGQyZDBlZDQ1MyIsImlhdCI6MTczNTU0MjQxMSwiZXhwIjoxNzM1NTQ2MDExfQ.GD4-Ahr1mJGXK8dwhUOxeiHvWpCbNOhHQabrbATjxNE"; // Replace with your method of getting the token
+
+    // Connect to the WebSocket server
+    const socket = io('http://localhost:3000', {
+      auth: { token },  // Pass the token as part of the connection's auth data
+    });
+
+    // On connection open
+    socket.on('connect', () => {
+      console.log('Connected to WebSocket server');
+    });
+
+    // On receiving message
+    socket.on('message', (message) => {
+      console.log('Received message:', message);
+      const li = document.createElement('li');
+      li.textContent = `Message: ${message}`;
+      document.getElementById('messagesList').appendChild(li);
+    });
+
+    // On error or disconnect
+    socket.on('connect_error', (err) => {
+      console.error('Connection error:', err);
+    });
+
+    // Send message on button click
+    document.getElementById('sendMessageButton').addEventListener('click', () => {
+      const messageInput = document.getElementById('messageInput').value;
+
+      if (messageInput) {
+        // Send message to server
+        socket.emit('message', messageInput);
+
+        // Optionally, append message in the list right away
+        const li = document.createElement('li');
+        li.textContent = `Sent: ${messageInput}`;
+        document.getElementById('messagesList').appendChild(li);
+
+        // Clear input
+        document.getElementById('messageInput').value = '';
+      }
+    });
+  </script>
+</body>
+</html>
