@@ -1,7 +1,7 @@
 // import User from "../models/User.js";
 import { User, Admin } from "../models/User.js"; // Importing User and Admin models
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt  from "bcryptjs"
 import dotenv from "dotenv";
 
 
