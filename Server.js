@@ -24,23 +24,15 @@ const whiteboardState = {}; // Store whiteboard state for each room
 const wss = new WebSocketServer({ noServer: true });
 
 
-const allowedOrigins = [
-  "http://localhost:5173", 
-  "https://firecode-blue.vercel.app" // Add your Vercel frontend URL here
-];
+
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // If you're using cookies/auth
+      origin: "*",
+      credentials: true,
   })
 );
+
 
 // WebSocket server logic
 wss.on('connection', (ws, req) => {
