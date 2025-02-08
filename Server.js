@@ -22,7 +22,7 @@ const whiteboardState = {}; // Store whiteboard state for each room
 
 // WebSocket setup
 const wss = new WebSocketServer({ noServer: true });
-onst cors = require("cors");
+
 
 const allowedOrigins = [
   "http://localhost:5173", 
