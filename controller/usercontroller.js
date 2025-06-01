@@ -84,20 +84,29 @@ export const registerUser = async (req, res) => {
 };
 
 
- export const getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   const { userId } = req.params;
   
+  // Validate userId
+  if (!userId || userId === 'null' || userId === 'undefined') {
+    console.log('Invalid userId received:', userId);
+    return res.status(400).json({ message: 'Invalid user ID provided' });
+  }
+
+  // Check if userId is a valid MongoDB ObjectId
+  if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+    console.log('Invalid userId format:', userId);
+    return res.status(400).json({ message: 'Invalid user ID format' });
+  }
+
   try {
     const user = await User.findById(userId);
-    
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
     res.status(200).json(user);
   } catch (error) {
     console.error('Error fetching user data:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
-
