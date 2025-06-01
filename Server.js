@@ -27,15 +27,9 @@ const wss = new WebSocketServer({ noServer: true });
 
 
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://firecodeblue.vercel.app",
-        "https://firecode-blue.vercel.app",  // Old domain   
-        "https://leetcode-backend-yizw.onrender.com",
-    ],
+    origin: true,  // Allow all origins temporarily
     credentials: true,
 }));
-
 
 // WebSocket server logic
 wss.on('connection', (ws, req) => {
