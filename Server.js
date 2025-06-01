@@ -176,10 +176,10 @@ const server = app.listen(process.env.PORT || 3000, () => {
 });
 
 connectDB();
-app.use(bodyParser.json());
-app.use(cors({
-  origin: 'http://localhost:5173',
-}));
+// app.use(bodyParser.json());
+// app.use(cors({
+ 
+// }));
 
 // WebSocket upgrade handling
 server.on('upgrade', (request, socket, head) => {
