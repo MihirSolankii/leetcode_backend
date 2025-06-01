@@ -26,12 +26,13 @@ const wss = new WebSocketServer({ noServer: true });
 
 
 
-app.use(
-  cors({
-      origin: "*",
-      credentials: true,
-  })
-);
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://firecode-blue.vercel.app"
+    ],
+    credentials: true,
+}));
 
 
 // WebSocket server logic
