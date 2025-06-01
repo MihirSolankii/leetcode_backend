@@ -30,6 +30,7 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://firecodeblue.vercel.app",
+        "https://firecode-blue.vercel.app",  // Old domain   
         "https://leetcode-backend-yizw.onrender.com",
     ],
     credentials: true,
