@@ -93,6 +93,9 @@ export const getUserById = async (req, res) => {
     return res.status(400).json({ message: 'Invalid user ID provided' });
   }
 
+  console.log('Received userId:', userId);
+  console.log('userId length:', userId?.length);
+  console.log('userId type:', typeof userId);
   // Check if userId is a valid MongoDB ObjectId
   if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
     console.log('Invalid userId format:', userId);
